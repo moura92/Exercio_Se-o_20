@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
@@ -38,12 +37,12 @@ public class Programa {
 			}
 			System.out.println("Email de pessoas cujo salário é superior a R$" + salario);
 
-			Comparator<String> comparador = (s1, s2) -> s1.toUpperCase().compareTo(s2.toUpperCase());
 
 			List<String> listaEmail = lista.stream()
 					.filter(p -> p.getSalario() > salario)
 					.map(p -> p.getEmail())
-					.sorted(comparador).collect(Collectors.toList());
+					.sorted()
+					.collect(Collectors.toList());
 			listaEmail.forEach(System.out::println);
 
 			ProdutoSoma ps = new ProdutoSoma();
@@ -51,6 +50,16 @@ public class Programa {
 			double soma = ps.soma(lista, p -> p.getNome().charAt(0) == 'M');
 			System.out.print("Soma do salário das pessoas cujo nome começa com 'M': R$" + String.format("%.2f", soma));
 
+			/*
+			System.out.println();
+			System.out.println("Segunda opção:");
+			double soma1 = lista.stream()
+					.filter(x -> x.getNome().charAt(0) == 'M')
+					.map(x -> x.getSalario())
+					.reduce(0.0, (x, y) -> x + y);
+			
+			System.out.println("Sum of salary from people whose name starts with 'M': " + String.format("%.2f", soma1));
+			*/
 			// lista.forEach(System.out::println);
 		} catch (IOException e) {
 			System.out.println("ERRO: " + e.getMessage());
